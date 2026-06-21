@@ -1,10 +1,10 @@
 # Azure AI POC to Production-Ready RAG
 
-This repository supports my technical blog post about moving an Azure AI proof of concept toward a production-ready Retrieval Augmented Generation solution.
+This repository supports my technical blog post about moving an Azure AI proof of concept toward a production-ready Retrieval Augmented Generation solution on Azure.
 
-The goal is not to build an over-engineered enterprise platform from day one. The goal is to show the practical thinking required when a simple Azure AI demo needs to become a secure, reliable, and supportable business solution.
+The goal is not to build an over-engineered enterprise platform from day one. The goal is to document the practical architecture thinking required when a simple Azure AI demo needs to become a secure, reliable, and supportable business solution.
 
-## Why this repo exists
+## Repository purpose
 
 Many Azure AI proof of concepts start with a simple flow:
 
@@ -14,7 +14,7 @@ User → Chat UI → Orchestrator → Test data → Azure OpenAI model → Respo
 
 That is enough to prove the idea, but it is not enough for production.
 
-A real solution needs to consider:
+A production-ready direction needs to consider:
 
 * trusted business data
 * Azure AI Search for retrieval
@@ -27,11 +27,57 @@ A real solution needs to consider:
 * RAG evaluation
 * clear business ownership
 
-This repo captures those concepts in a simple, readable format for business owners, Azure engineers, and technical leads.
+This repository captures those concepts in a simple, readable format for business owners, Azure engineers, solution architects, and technical leads.
+
+## Repository structure
+
+```text
+azure-ai-poc-to-production-rag/
+├── README.md
+├── docs/
+│   └── architecture-notes.md
+├── diagrams/
+│   └── azure-ai-rag-flow.mmd
+├── samples/
+│   └── placeholder.md
+└── references.md
+```
+
+## Supporting files
+
+| File                                                             | Purpose                                                                                                                                                      |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [docs/architecture-notes.md](docs/architecture-notes.md)         | Detailed architecture notes explaining the POC-to-production journey, RAG design, private networking, gateway pattern, identity, monitoring, and evaluation. |
+| [diagrams/azure-ai-rag-flow.mmd](diagrams/azure-ai-rag-flow.mmd) | Mermaid architecture diagram showing the high-level Azure AI RAG request flow.                                                                               |
+| [samples/placeholder.md](samples/placeholder.md)                 | Placeholder for future sample code, Bicep modules, API Management policies, or ingestion scripts.                                                            |
+| [references.md](references.md)                                   | Microsoft Learn and Azure architecture references used to validate the design direction.                                                                     |
+
+## Architecture diagram
+
+The high-level architecture flow is stored as a Mermaid diagram here:
+
+[View Mermaid diagram source](diagrams/azure-ai-rag-flow.mmd)
+
+```mermaid
+flowchart LR
+    U["Business User"] --> AGW["Application Gateway<br/>Web Application Firewall"]
+    AGW --> APP["App Service<br/>Front End / API"]
+    APP --> ORCH["Orchestrator<br/>Prompt / Agent Layer"]
+
+    ORCH --> SEARCH["Azure AI Search<br/>RAG Retrieval Index"]
+    SEARCH --> ORCH
+
+    ORCH --> APIM["Azure API Management<br/>AI Gateway"]
+    APIM --> AOAI["Azure OpenAI<br/>Model Deployment"]
+
+    AOAI --> ORCH
+    ORCH --> APP
+    APP --> U
+```
 
 ## Target audience
 
-This content is written for:
+This repository is written for:
 
 * business owners reviewing an Azure AI proposal
 * Azure engineers building AI-enabled workloads
@@ -53,7 +99,7 @@ User
   → Response grounded in business data
 ```
 
-The architecture may change depending on the organisation, but the key idea remains the same: separate the user experience, orchestration logic, retrieval layer, model access, and operational controls.
+The architecture may change depending on the organisation, but the key idea remains the same: separate the user experience, orchestration logic, retrieval layer, model access, network controls, and operational responsibilities.
 
 ## Core Azure services
 
@@ -97,6 +143,10 @@ Important design decisions include:
 * how answer quality is tested
 * how stale content is updated or removed
 
+For more detail, see:
+
+[Architecture notes](docs/architecture-notes.md)
+
 ## POC vs production
 
 | POC concern                      | Production concern                                                  |
@@ -128,6 +178,10 @@ This helps with:
 * separating application code from backend model changes
 * supporting multiple teams or applications
 
+The design is expanded in:
+
+[Architecture notes: API gateway pattern](docs/architecture-notes.md#10-api-gateway-pattern)
+
 ## Private networking
 
 For sensitive business data, private networking should be reviewed early.
@@ -142,6 +196,10 @@ A production design may include:
 * diagnostic logging for security and troubleshooting
 
 Private endpoints are not just a checkbox. They require proper DNS, routing, RBAC, and operational support.
+
+More detail:
+
+[Architecture notes: private networking](docs/architecture-notes.md#12-private-networking)
 
 ## Evaluation
 
@@ -158,7 +216,11 @@ Useful checks include:
 * response consistency
 * failure behaviour when the answer is not in the source data
 
-A good AI solution should improve through measured experiments, not random prompt changes.
+Evaluation should be repeated when documents, prompts, models, chunking, or indexing logic changes.
+
+More detail:
+
+[Architecture notes: evaluation](docs/architecture-notes.md#15-evaluation)
 
 ## Practical implementation path
 
@@ -177,13 +239,13 @@ A sensible delivery path is:
 
 ## What this repo is not
 
-This repo is not a full production implementation.
+This repository is not a full production implementation.
 
-It is a reference companion for architecture thinking and technical planning. It can be extended later with Bicep modules, sample app code, deployment pipelines, or RAG evaluation scripts.
+It is a reference companion for architecture thinking and technical planning. It can be extended later with Bicep modules, sample app code, deployment pipelines, API Management policies, or RAG evaluation scripts.
 
 ## Related blog post
 
-The blog post explains the same topic in a more business-readable format:
+This repository supports the blog post:
 
 **From Azure AI POC to Production-Ready RAG**
 
@@ -198,17 +260,25 @@ Topics covered:
 * throttling and HTTP 429
 * evaluation and production readiness
 
-## Suggested next steps
+## Suggested future additions
 
-Possible future additions to this repo:
+Possible future additions to this repository:
 
 * Bicep modules for the core Azure resources
 * Azure AI Search index example
 * sample document ingestion pipeline
 * API Management policy examples
-* Mermaid architecture diagram
 * GitHub Actions or Azure DevOps deployment pipeline
 * RAG evaluation checklist
+* sample architecture decision records
+
+These are intentionally not included yet to avoid making the repository look like a fake implementation before the working samples exist.
+
+## References
+
+See:
+
+[references.md](references.md)
 
 ## Author
 
