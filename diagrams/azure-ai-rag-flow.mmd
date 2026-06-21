@@ -1,0 +1,15 @@
+# Azure AI RAG Flow
+
+```mermaid
+flowchart LR
+    U[User] --> AGW[Application Gateway with WAF]
+    AGW --> APP[App Service / Front End]
+    APP --> ORCH[Orchestrator / Agent Layer]
+    ORCH --> SEARCH[Azure AI Search]
+    SEARCH --> ORCH
+    ORCH --> APIM[API Management / AI Gateway]
+    APIM --> AOAI[Azure OpenAI Model Deployment]
+    AOAI --> ORCH
+    ORCH --> APP
+    APP --> U
+```
