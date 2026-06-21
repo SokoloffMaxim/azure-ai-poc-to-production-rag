@@ -245,10 +245,11 @@ It is a reference companion for architecture thinking and technical planning. It
 
 ## Related blog post
 
-This repository supports the blog post:
+This repository supports my technical blog post:
+
 [From Azure AI POC to Production-Ready RAG](https://sokolovtech.com/ai/138-from-azure-ai-poc-to-production-ready-rag)
 
-**From Azure AI POC to Production-Ready RAG**
+The post explains how to move an Azure AI proof of concept toward a production-ready Retrieval Augmented Generation solution using Microsoft Foundry, Azure AI Search, Azure OpenAI model deployments, private networking, and API gateway patterns.
 
 Topics covered:
 
