@@ -1,18 +1,15 @@
-# Azure AI RAG Flow
-
 ```mermaid
 flowchart LR
-    U[Business User] --> AGW[Application Gateway<br/>Web Application Firewall]
-    AGW --> APP[App Service<br/>Front End / API]
-    APP --> ORCH[Orchestrator<br/>Prompt / Agent Layer]
+    U["Business User"] --> AGW["Application Gateway<br/>Web Application Firewall"]
+    AGW --> APP["App Service<br/>Front End / API"]
+    APP --> ORCH["Orchestrator<br/>Prompt / Agent Layer"]
 
-    ORCH --> SEARCH[Azure AI Search<br/>RAG Retrieval Index]
+    ORCH --> SEARCH["Azure AI Search<br/>RAG Retrieval Index"]
     SEARCH --> ORCH
 
-    ORCH --> APIM[Azure API Management<br/>AI Gateway]
-    APIM --> AOAI[Azure OpenAI<br/>Model Deployment]
+    ORCH --> APIM["Azure API Management<br/>AI Gateway"]
+    APIM --> AOAI["Azure OpenAI<br/>Model Deployment"]
 
     AOAI --> ORCH
     ORCH --> APP
     APP --> U
-```
