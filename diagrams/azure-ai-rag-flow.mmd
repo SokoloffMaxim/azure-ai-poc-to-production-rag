@@ -2,13 +2,16 @@
 
 ```mermaid
 flowchart LR
-    U[User] --> AGW[Application Gateway with WAF]
-    AGW --> APP[App Service / Front End]
-    APP --> ORCH[Orchestrator / Agent Layer]
-    ORCH --> SEARCH[Azure AI Search]
+    U[Business User] --> AGW[Application Gateway<br/>Web Application Firewall]
+    AGW --> APP[App Service<br/>Front End / API]
+    APP --> ORCH[Orchestrator<br/>Prompt / Agent Layer]
+
+    ORCH --> SEARCH[Azure AI Search<br/>RAG Retrieval Index]
     SEARCH --> ORCH
-    ORCH --> APIM[API Management / AI Gateway]
-    APIM --> AOAI[Azure OpenAI Model Deployment]
+
+    ORCH --> APIM[Azure API Management<br/>AI Gateway]
+    APIM --> AOAI[Azure OpenAI<br/>Model Deployment]
+
     AOAI --> ORCH
     ORCH --> APP
     APP --> U
