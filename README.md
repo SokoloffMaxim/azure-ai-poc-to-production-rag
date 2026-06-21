@@ -4,6 +4,14 @@ This repository supports my technical blog post about moving an Azure AI proof o
 
 The goal is not to build an over-engineered enterprise platform from day one. The goal is to document the practical architecture thinking required when a simple Azure AI demo needs to become a secure, reliable, and supportable business solution.
 
+## Related technical blog post
+
+This repository is a companion reference for my technical blog post:
+
+[From Azure AI POC to Production-Ready RAG](https://sokolovtech.com/ai/138-from-azure-ai-poc-to-production-ready-rag)
+
+The blog post explains the practical architecture thinking behind moving an Azure AI proof of concept toward a production-ready Retrieval Augmented Generation solution using Microsoft Foundry, Azure AI Search, Azure OpenAI model deployments, private networking, and API gateway patterns.
+
 ## Repository purpose
 
 Many Azure AI proof of concepts start with a simple flow:
